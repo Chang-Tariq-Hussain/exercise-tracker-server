@@ -161,6 +161,20 @@ const getRecentActivities = async (req, res) => {
     }
 }
 
+const getAllActivityTypes = async(req, res) => {
+    try{
+        const activityTypes = await ActivityType.find();
+        console.log("activitTYpes", activityTypes);
+        if(activityTypes.length  < 1){
+            return res.status(404).json({message: "Could not find any activity type"})
+        }
+
+        return res.status(200).json({message: 'Fetched activity types successfully', data: activityTypes })
+    }catch(error){
+        res.status(500).json({error:error.message})
+    }
+}
+
 
 module.exports = {
     createActivity,
@@ -169,6 +183,7 @@ module.exports = {
     getActivityById,
     updateActivity,
     getActivitiesByType,
-    getRecentActivities
+    getRecentActivities,
+    getAllActivityTypes
 
 }
